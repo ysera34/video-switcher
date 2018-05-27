@@ -264,18 +264,8 @@ modules.xml
 # Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
 
 
-### Web ###
-*.asp
-*.cer
-*.csr
-*.css
-*.htm
-*.html
-*.js
-*.jsp
-*.php
-*.rss
-*.xhtml
-
-
 # End of https://www.gitignore.io/api/web,c++,node,macos,phpstorm,phpstorm+iml,phpstorm+all
+
+### custom ###
+reference
+static
