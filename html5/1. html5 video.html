@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>1. html5 video</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+    <link rel="stylesheet" href="../css/default.css">
+  </head>
+  <body>
+    <div>
+      <video class="video" src="../static/1-1-yellow.mp4" autoplay>
+        Your device does not support HTML5 video.
+        <a href="#">Download the Leaving to Love HTML5 introductory video.</a>
+      </video>
+    </div>
+    <div>
+      <video class="video" src="../static/1-2-red.mp4" controls>
+        <object
+          type="application/x-shockwave-flash"
+          data="player.swf?file='../static/1-2-red.mp4'">
+          <param
+            name="movie"
+            value="player.swf?file='../static/1-2-red.mp4'" />
+          <a href="#">Download the Learning to Love HTML5 introductory video.</a>
+        </object>
+      </video>
+    </div>
+  </body>
+</html>
