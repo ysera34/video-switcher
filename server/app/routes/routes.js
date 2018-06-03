@@ -18,11 +18,11 @@ module.exports = function(app) {
     switch (id) {
       case '1':
           console.log('id: ' + id);
-          res.render('video11.pug');
+          res.render('video11');
         break;
       case '2':
           console.log('id: ' + id);
-          res.render('video12.pug');
+          res.render('video12');
         break;
       default:
         res.render('index');
