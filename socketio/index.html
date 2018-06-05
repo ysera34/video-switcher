@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <style media="screen">
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      #video {
+        display: block;
+      }
+    </style>
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <!-- <h1>Hello World!</h1> -->
+    <!-- <ul id="messages"></ul> -->
+    <div id="video-container">
+      <video id="video" autoplay loop>
+      </video>
+    </div>
+
+    <div id="actions">
+      <!-- <button id="turnOnLed" type="button">Turn On LED</button> -->
+      <!-- <button id="turnOffLed" type="button">Turn Off LED</button> -->
+      <button id="video-button-1" type="button">Turn On VIDEO 1</button>
+      <button id="video-button-2" type="button">Turn On VIDEO 2</button>
+    </div>
+
+  </body>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const video_path1 = ['assets/video/1-1-yellow.mp4', 'assets/video/1-2-red.mp4'];
+      const video_path2 = ['assets/video/2-1-green.mp4', 'assets/video/2-2-blue.mp4'];
+
+      const $button1 = $('#video-button-1');
+      const $button2 = $('#video-button-2');
+      const $action_container = $('#actions');
+      const $video = $('#video');
+
+      $button1.on('click', () => {
+        $action_container.css('display', 'none');
+        $video.attr('src', video_path1[0]);
+      });
+      $button2.on('click', () => {
+        $action_container.css('display', 'none');
+        $video.attr('src', video_path2[0]);
+      });
+
+      // Initialize Variables
+      const socket = io();
+
+      const $video_container = $('#video-container');
+      // const $turnOffLed = $('#turnOffLed');
+      // const $turnOnLed = $('#turnOnLed');
+
+      // Socket.io listeners
+      socket.on('new message', (msg) => {
+        displayMessage(msg);
+      });
+
+      socket.on('close', () => {
+        displayMessage('Lost connection to device.');
+      });
+
+      // Browser Event Listeners
+      // $turnOffLed.click(() => {
+      //   sendData('off');
+      // });
+
+      // $turnOnLed.click(() => {
+      //   sendData('on');
+      // });
+
+      // Functions
+      function sendData(data) {
+        socket.send(data);
+      }
+
+      let message = '';
+      function displayMessage(msg) {
+        // $messages.append($('<li>').text(msg));
+        // $video_container.append($('<span>').text(msg));
+        if (message !== msg) {
+          message = msg;
+          return;
+        }
+        const video_scr = $video.attr('src');
+        if (msg === 'on') {
+          switch (video_scr) {
+            case video_path1[0]:
+              $video.attr('src', video_path1[1]);
+              break;
+            case video_path2[0]:
+              $video.attr('src', video_path2[1]);
+              break;
+            default:
+              break;
+          }
+        } else if (msg === 'off') {
+          switch (video_scr) {
+            case video_path1[1]:
+              $video.attr('src', video_path1[0]);
+              break;
+            case video_path2[1]:
+              $video.attr('src', video_path2[0]);
+              break;
+            default:
+              break;
+          }
+        }
+        message = msg;
+      }
+    });
+  </script>
+</html>
